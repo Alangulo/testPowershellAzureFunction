@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AzureFunctionsVersion>v2</AzureFunctionsVersion>
+     <SDKVersion>6.1.2</SDKVersion>
+    <SDKPlatform>win-x64</SDKPlatform>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="$(USERPROFILE)\.nuget\packages\system.management.automation\$(SDKVersion)\runtimes\$(SDKPlatform)\lib\netstandard2.0\System.Management.Automation.dll;&#xD;&#xA;    ">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.13" />
+    <PackageReference Include="System.Management.Automation" Version="6.1.2" />
+    <PackageReference Include="System.Runtime" Version="4.2.1.0" />
+  </ItemGroup>
+  
+    <Target Name="CopyRuntimeToBin" AfterTargets="Build">
+    <Copy SourceFiles="   $(USERPROFILE)\.nuget\packages\system.management.automation\$(SDKVersion)\runtimes\$(SDKPlatform)\lib\netstandard2.0\System.Management.Automation.dll;&#xD;&#xA;    " DestinationFolder="$(OutputPath)\bin" />
+  </Target>
+  
+  <ItemGroup>
+    <None Update="host.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="local.settings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+  
+  
+  <ItemGroup>
+    <None Update="System.Runtime.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  
+  
+</Project>
+
